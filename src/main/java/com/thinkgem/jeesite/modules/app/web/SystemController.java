@@ -298,7 +298,7 @@ public class SystemController {
             } else {
                 appUser.setPassword(newPassword);
                 appUserService.save(appUser);
-                data.setCode("100");
+                data.setCode("200");
                 data.setMsg("修改密码成功");
             }
         }catch (Exception e){
