@@ -410,10 +410,16 @@ public class SystemController {
             appUser = appUserService.getByPhone(appUser);
             if (appUser.getScienerUserName() != null && appUser.getScienerPassword()!=null) {
                 Map scienerRes = scienerLockService.authorize(appUser.getScienerUserName(),appUser.getScienerPassword() );
-                data.setCode("200");
-                data.setMsg("用户在锁平台授权成功");
-                data.setData(scienerRes.get("access_token"));
-                return data;
+                if(scienerRes!=null && scienerRes.get("access_token")!=null ) {
+                    data.setCode("200");
+                    data.setMsg("用户在锁平台授权成功");
+                    data.setData(scienerRes.get("access_token"));
+                    return data;
+                }else{
+                    data.setCode("400");
+                    data.setMsg("锁平台授权失败，请联系客服");
+                }
+
             } else {
                 data.setCode("400");
                 data.setMsg("缺少锁平台账号，请联系客服");
